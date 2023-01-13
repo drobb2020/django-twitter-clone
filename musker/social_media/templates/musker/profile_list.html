@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<h1 class="mb-3">Profile List</h1>
+
+{% if profiles %}
+{% for profile in profiles %}
+<div class="card mb-3" style="max-width: 600px">
+  <div class="row g-0">
+    <div class="col-md-4">
+      <img
+        src="{% static 'assets/user.png' %}"
+        class="img-fluid rounded-start"
+        alt="{{ profile.user.username }}"
+      />
+    </div>
+    <div class="col-md-8">
+      <div class="card-body">
+        <h5 class="card-title">{{ profile.user.username }}</h5>
+        <p class="lead mb-3">Link: <a href="{% url 'profile' profile.user.id %}">@{{profile.user.username|lower }}</a></p>
+        <p class="card-text">
+          <small class="text-muted"
+            >Date Joined: {{ profile.date_joined }}</small
+          >
+        </p>
+        <p class="card-text">
+          <small class="text-muted"
+            >Last updated: {{ profile.date_modified }}</small
+          >
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+{% else %}
+<h2>There are currently no profiles to display</h2>
+{% endif %}
+
+{% endblock content %}
