@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.models import Group, User
 
-from .models import Profile
+from .models import Meep, Profile
 
 admin.site.unregister(Group)
 
@@ -9,7 +9,7 @@ admin.site.unregister(Group)
 # Include Profile with User Info
 class ProfileInline(admin.StackedInline):
     model = Profile
-    list_display = ('username', )
+    list_display = ("username",)
 
 
 # Extend User model
@@ -27,3 +27,5 @@ admin.site.register(User, UserAdmin)
 
 # Register Profile
 # admin.site.register(Profile)
+
+admin.site.register(Meep)

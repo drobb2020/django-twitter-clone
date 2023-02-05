@@ -4,6 +4,15 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 
 
+class Meep(models.Model):
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name="meeps")
+    body = models.CharField(max_length=250)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.user.username} {self.created_at:%Y-%m-%d %H:%M} {self.body}..."
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     follows = models.ManyToManyField(

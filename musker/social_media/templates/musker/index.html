@@ -1,6 +1,28 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Musker</h1>
-  <p>Meeps!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <h1 class="text-center">Meeps!</h1>
+      {% for meep in meeps %}
+      <div class="alert alert-secondary" role="alert">
+        <p class="lead">{{ meep.body }}</p>
+        <small class="text-muted">{{ meep.created_at }} by @{{ meep.user.username|title }}</small>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="col-4 mt-3">
+      {% if form %}
+      <h3 class="text-center">Add A New Meep!</h3>
+      <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary">Post Meep!</button>
+      </form>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
 {% endblock content %}
