@@ -15,6 +15,17 @@
         </li>
         {% endif %}
       </ul>
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'logout' %}" class="nav-link me-3">Logout</a>
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a href="{% url 'login' %}" class="nav-link me-3">Login</a>
+        </li>
+        {% endif %}
+      </ul>
       <form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 from musker.forms import MeepForm
 from musker.models import Meep, Profile
@@ -7,16 +8,16 @@ from musker.models import Meep, Profile
 def index(request):
     if request.user.is_authenticated:
         form = MeepForm(request.POST or None)
-        if request.method == 'POST':
+        if request.method == "POST":
             if form.is_valid():
                 meep = form.save(commit=False)
                 meep.user = request.user
                 meep.save()
-                messages.success(request, ('Your meep has been saved.'))
-                return redirect('index')
+                messages.success(request, ("Your meep has been saved."))
+                return redirect("index")
 
         meeps = Meep.objects.all().order_by("-created_at")
-        context = {'meeps': meeps, 'form': form}
+        context = {"meeps": meeps, "form": form}
         return render(request, "musker/index.html", context)
     else:
         meeps = Meep.objects.all().order_by("-created_at")
@@ -56,6 +57,26 @@ def profile(request, pk):
         return redirect("index")
 
 
-def create(request):
-    context = {}
-    return render(request, "musker/create.html", context)
+def login_user(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            messages.success(request, "You have successfully logged in. Enjoy!")
+            return redirect("index")
+        else:
+            messages.success(request, "There was an error during login, try again...")
+            return redirect("login")
+    else:
+        context = {}
+        return render(request, "musker/login.html", context)
+
+
+def logout_user(request):
+    logout(request)
+    messages.success(
+        request, "You have successfully logged out. We will see you next time!"
+    )
+    return redirect("index")
