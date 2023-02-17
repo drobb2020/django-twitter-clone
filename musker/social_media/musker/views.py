@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+
+# from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
-from musker.forms import MeepForm
+from musker.forms import MeepForm, SignUpForm
 from musker.models import Meep, Profile
 
 
@@ -55,6 +57,24 @@ def profile(request, pk):
     else:
         messages.success(request, "You must be logged in to see the profile page.")
         return redirect("index")
+
+
+def register_user(request):
+    form = SignUpForm()
+    if request.method == "POST":
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            form.save()
+            username = form.cleaned_data["username"]
+            password = form.cleaned_data["password1"]
+            user = authenticate(username=username, password=password)
+            login(request, user)
+            messages.success(
+                request, ("Your account has been created. Welcome to Musker.")
+            )
+            return redirect("index")
+    context = {"form": form}
+    return render(request, "musker/register.html", context)
 
 
 def login_user(request):
