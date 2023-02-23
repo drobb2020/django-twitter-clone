@@ -18,8 +18,8 @@ class Profile(models.Model):
     follows = models.ManyToManyField(
         "self", related_name="followed_by", symmetrical=False, blank=True
     )
-    date_joined = models.DateTimeField(User, auto_now_add=True)
-    date_modified = models.DateTimeField(User, auto_now=True)
+    date_joined = models.DateTimeField(auto_now_add=True)
+    date_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.user.username

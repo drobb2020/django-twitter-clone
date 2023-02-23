@@ -52,10 +52,12 @@
             <button class="btn btn-outline-success" name="follow" value="follow" type="submit">Follow @{{ profile.user.username|lower }}</button>
           {% endif %}
         </form>
+        {% if request.user.id == profile.user.id %}
+        <a href="{% url 'update-user' %}" class="btn btn-outline-secondary py-3">Update your Profile</a>
+        {% endif %}
     </div>
   </div>
 </div>
-
 {% endif %}
 
 {% endblock content %}

@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 
 # from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import redirect, render
@@ -75,6 +76,24 @@ def register_user(request):
             return redirect("index")
     context = {"form": form}
     return render(request, "musker/register.html", context)
+
+
+def update_user(request):
+    if request.user.is_authenticated:
+        current_user = User.objects.get(id=request.user.id)
+        form = SignUpForm(request.POST or None, instance=current_user)
+        if form.is_valid():
+            form.save()
+            login(request, current_user)
+            messages.success(request, ("Your account profile has been updated."))
+            return redirect("index")
+        context = {'form': form}
+        return render(request, "musker/update_user.html", context)
+    else:
+        messages.success(
+            request, ("You must be authenticated to see the profile page...")
+        )
+        return redirect("index")
 
 
 def login_user(request):
