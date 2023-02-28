@@ -18,7 +18,11 @@
       </div>
       {% endif %}
     </div>
+
     <div class="col-4 mt-5">
+      {% if profile.profile_image %}
+        <img src="{{ profile.profile_image.url }}" alt="..." class="img-fluid">
+      {% endif %}
         <div class="card mt-5">
           <h5 class="card-header">Follows</h5>
           <div class="card-body">

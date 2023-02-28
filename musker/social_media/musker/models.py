@@ -18,6 +18,7 @@ class Profile(models.Model):
     follows = models.ManyToManyField(
         "self", related_name="followed_by", symmetrical=False, blank=True
     )
+    profile_image = models.ImageField(null=True, blank=True, upload_to='images/')
     date_joined = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

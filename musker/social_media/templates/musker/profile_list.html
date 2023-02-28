@@ -12,7 +12,11 @@
   <div class="row g-0">
     <div class="col-md-4">
       <img
+      {% if profile.profile_image %}
+        src="{{ profile.profile_image.url }}"
+      {% else %}
         src="{% static 'assets/user.png' %}"
+      {% endif %}
         class="img-fluid rounded-start"
         alt="{{ profile.user.username }}"
       />
