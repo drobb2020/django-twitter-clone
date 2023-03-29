@@ -1,14 +1,37 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
+
 <div class="container">
   <div class="row">
     <div class="col-8">
       <h1 class="text-center">Meeps!</h1>
       {% for meep in meeps %}
       <div class="alert alert-secondary" role="alert">
-        <p class="lead">{{ meep.body }}</p>
-        <small class="text-muted">{{ meep.created_at }} by @{{ meep.user.username|title }}</small>
+        <div class="container">
+          <div class="row">
+            <div class="col-2">
+              <img
+                {% if meep.user.profile.profile_image %}
+                src="{{ meep.user.profile.profile_image.url }}"
+                {% else %}
+                src="{% static 'assets/user.png' %}"
+                {% endif %}
+                class="img-fluid rounded-circle"
+                style="height: 80px;"
+                alt="{{ meep.user.username }}"
+              />
+            </div>
+            <div class="col-10">
+              <p class="lead">{{ meep.body }}</p>
+              <small class="text-muted"
+                >{{ meep.created_at }} by @{{ meep.user.username|title }}</small
+              >
+            </div>
+          </div>
+        </div>
       </div>
       {% endfor %}
     </div>
@@ -16,9 +39,10 @@
       {% if form %}
       <h3 class="text-center">Add A New Meep!</h3>
       <form method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-secondary w-100">Post Meep!</button>
+        {% csrf_token %} {{ form.as_p }}
+        <button type="submit" class="btn btn-secondary w-100">
+          Post Meep!
+        </button>
       </form>
       {% endif %}
     </div>

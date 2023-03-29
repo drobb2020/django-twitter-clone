@@ -1,7 +1,17 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from musker.models import Meep
+from musker.models import Meep, Profile
+
+
+class ProfilePicForm(forms.ModelForm):
+    """form to add profile image"""
+
+    profile_image = forms.ImageField(label="Profile Image")
+
+    class Meta:
+        model = Profile
+        fields = ("profile_image",)
 
 
 class MeepForm(forms.ModelForm):

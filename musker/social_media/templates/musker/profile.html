@@ -1,24 +1,45 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block content %}
 
 {% if profile %}
 <div class="container text-center">
   <div class="row">
+    <!-- Meeps -->
     <div class="col-8">
       <h1>{{ profile.user.username|title }}'s Profile</h1>
       {% if meeps %}
-      <div class="text-start my-5">
+      <div class="container text-start my-5">
         {% for meep in meeps %}
         <div class="alert alert-secondary" role="alert">
-          <p class="lead">{{ meep.body }}</p>
-          <small class="text-muted">{{ meep.created_at }} by @{{ meep.user.username|title }}</small>
+          <div class="container">
+            <div class="row">
+              <div class="col-2">
+                <img
+                {% if profile.profile_image %}
+                  src="{{ profile.profile_image.url }}"
+                {% else %}
+                  src="{% static 'assets/user.png' %}"
+                {% endif %}
+                  class="img-fluid rounded-circle"
+                  style="height: 75px;"
+                  alt="{{ profile.user.username }}"
+                />
+              </div>
+              <div class="col-10">
+                <p class="lead">{{ meep.body }}</p>
+                <small class="text-muted">{{ meep.created_at }} by @{{ meep.user.username|title }}</small>
+              </div>
+            </div>
+          </div>
         </div>
         {% endfor %}
       </div>
       {% endif %}
     </div>
-
+    <!-- Follows & Following -->
     <div class="col-4 mt-5">
       {% if profile.profile_image %}
         <img src="{{ profile.profile_image.url }}" alt="..." class="img-fluid">
