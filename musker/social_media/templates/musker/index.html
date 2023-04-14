@@ -20,15 +20,17 @@
                 src="{% static 'assets/user.png' %}"
                 {% endif %}
                 class="img-fluid rounded-circle"
-                style="height: 80px;"
+                style="height: 80px; width: 80px"
                 alt="{{ meep.user.username }}"
               />
             </div>
             <div class="col-10">
               <p class="lead">{{ meep.body }}</p>
-              <small class="text-muted"
-                >{{ meep.created_at }} by @{{ meep.user.username|title }}</small
-              >
+              <small class="text-muted">
+                {{ meep.created_at }} by @{{ meep.user.username|title }} | {{ meep.number_of_likes}} likes
+                 |
+                 <a href="{% url 'meep_like' meep.id %}" class="badge rounded-pill text-bg-primary text-decoration-none">{% if user in meep.likes.all %}Unlike{% else %}Like{% endif %}</a>
+              </small>
             </div>
           </div>
         </div>

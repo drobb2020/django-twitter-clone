@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 
 # from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from musker.forms import MeepForm, ProfilePicForm, SignUpForm
 from musker.models import Meep, Profile
 
@@ -127,3 +127,18 @@ def logout_user(request):
         request, "You have successfully logged out. We will see you next time!"
     )
     return redirect("index")
+
+
+def meep_like(request, pk):
+    if request.user.is_authenticated:
+        meep = get_object_or_404(Meep, pk=pk)
+        if meep.likes.filter(id=request.user.id):
+            meep.likes.remove(request.user)
+        else:
+            meep.likes.add(request.user)
+
+        return redirect(request.META.get('HTTP_REFERER'))
+
+    else:
+        messages.success(request, "You must be logged in to to like a meep!")
+        return redirect("index")
