@@ -12,5 +12,5 @@ platformdirs==2.6.0
 pycodestyle==2.10.0
 pyflakes==3.0.1
 python-decouple==3.6
-sqlparse==0.4.3
+sqlparse==0.4.4
 tomli==2.0.1
