@@ -29,7 +29,7 @@
               <small class="text-muted">
                 {{ meep.created_at }} by @{{ meep.user.username|title }} | {{ meep.number_of_likes}} likes
                  |
-                 <a href="{% url 'meep_like' meep.id %}" class="badge rounded-pill text-bg-primary text-decoration-none">{% if user in meep.likes.all %}Unlike{% else %}Like{% endif %}</a>
+                 <a href="{% url 'meep_like' meep.id %}">{% if user in meep.likes.all %}<i class="fa-solid fa-heart"  style="color: red;"></i>{% else %}<i class="fa-regular fa-heart" style="color: red;"></i>{% endif %}</a>
               </small>
             </div>
           </div>
