@@ -142,3 +142,13 @@ def meep_like(request, pk):
     else:
         messages.success(request, "You must be logged in to to like a meep!")
         return redirect("index")
+
+
+def meep_show(request, pk):
+    meep = get_object_or_404(Meep, pk=pk)
+    context = {'meep': meep}
+    if meep:
+        return render(request, "musker/show_meep.html", context)
+    else:
+        messages.success(request, "Sorry that meep does not exist.")
+        return redirect("index")
