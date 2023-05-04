@@ -24,6 +24,11 @@ class Profile(models.Model):
         "self", related_name="followed_by", symmetrical=False, blank=True
     )
     profile_image = models.ImageField(blank=True, upload_to='images/')
+    profile_bio = models.CharField(max_length=500, null=True, blank=True)
+    homepage_link = models.CharField(max_length=100, blank=True, null=True)
+    facebook_link = models.CharField(max_length=100, blank=True, null=True)
+    linkedin_link = models.CharField(max_length=100, blank=True, null=True)
+    github_link = models.CharField(max_length=100, blank=True, null=True)
     date_joined = models.DateTimeField(auto_now_add=True)
     date_modified = models.DateTimeField(auto_now=True)
 

@@ -8,10 +8,50 @@ class ProfilePicForm(forms.ModelForm):
     """form to add profile image"""
 
     profile_image = forms.ImageField(label="Profile Image")
+    profile_bio = forms.CharField(
+        label="",
+        widget=forms.Textarea(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Say something exciting about yourself!",
+            }
+        ),
+    )
+    homepage_link = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Website link"}
+        ),
+    )
+    facebook_link = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Facebook link"}
+        ),
+    )
+    linkedin_link = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "LinkedIn link"}
+        ),
+    )
+    github_link = forms.CharField(
+        label="",
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "Github link"}
+        ),
+    )
 
     class Meta:
         model = Profile
-        fields = ("profile_image",)
+        fields = (
+            "profile_image",
+            "profile_bio",
+            "homepage_link",
+            "facebook_link",
+            "linkedin_link",
+            "github_link",
+        )
 
 
 class MeepForm(forms.ModelForm):
@@ -25,7 +65,10 @@ class MeepForm(forms.ModelForm):
 
     class Meta:
         model = Meep
-        exclude = ("user", "likes",)
+        exclude = (
+            "user",
+            "likes",
+        )
 
 
 class SignUpForm(UserCreationForm):

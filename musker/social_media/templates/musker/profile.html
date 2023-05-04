@@ -45,9 +45,30 @@
     <!-- Follows & Following -->
     <div class="col-4 mt-5">
       {% if profile.profile_image %}
-        <img src="{{ profile.profile_image.url }}" alt="..." class="img-fluid">
+        <div class="mb-3"><img src="{{ profile.profile_image.url }}" alt="..." class="img-fluid"></div>
+        &nbsp;&nbsp;
       {% endif %}
-        <div class="card mt-5">
+      {% if profile.homepage_link %}
+        <a href="{{ profile.homepage_link }}" target="_blank"><i class="fa-light fa-square-user fa-2xl"></i></a>
+        &nbsp;&nbsp;
+      {% endif %}
+      {% if profile.facebook_link %}
+        <a href="{{ profile.facebook_link }}" target="_blank"><i class="fa-brands fa-square-facebook fa-2xl"></i></a>
+        &nbsp;&nbsp;
+      {% endif %}
+      {% if profile.linkedin_link %}
+        <a href="{{ profile.linkedin_link }}" target="_blank"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+        &nbsp;&nbsp;
+      {% endif %}
+      {% if profile.github_link %}
+        <a href="{{ profile.github_link }}" target="_blank"><i class="fa-brands fa-square-github fa-2xl"></i></a>
+      {% endif %}
+        <div class="mt-3">
+          {% if profile.profile_bio %}
+            <p class="lead">{{ profile.profile_bio }}</p>
+          {% endif %}
+        </div>
+        <div class="card mt-3">
           <h5 class="card-header">Follows</h5>
           <div class="card-body">
             <p class="card-text">
