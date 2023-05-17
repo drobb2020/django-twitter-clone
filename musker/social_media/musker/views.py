@@ -38,6 +38,20 @@ def profile_list(request):
         return redirect("index")
 
 
+def unfollow_user(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        request.user.profile.follows.remove(profile)
+        request.user.profile.save()
+        messages.success(
+            request, f"You have successfully unfollowed {profile.user.username}"
+        )
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        messages.success(request, "You must be logged in to unfollow a user.")
+        return redirect("index")
+
+
 def profile(request, pk):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id=pk)
@@ -137,7 +151,7 @@ def meep_like(request, pk):
         else:
             meep.likes.add(request.user)
 
-        return redirect(request.META.get('HTTP_REFERER'))
+        return redirect(request.META.get("HTTP_REFERER"))
 
     else:
         messages.success(request, "You must be logged in to to like a meep!")
@@ -146,7 +160,7 @@ def meep_like(request, pk):
 
 def meep_show(request, pk):
     meep = get_object_or_404(Meep, pk=pk)
-    context = {'meep': meep}
+    context = {"meep": meep}
     if meep:
         return render(request, "musker/show_meep.html", context)
     else:

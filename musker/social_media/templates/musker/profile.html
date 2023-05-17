@@ -49,19 +49,19 @@
         &nbsp;&nbsp;
       {% endif %}
       {% if profile.homepage_link %}
-        <a href="{{ profile.homepage_link }}" target="_blank"><i class="fa-light fa-square-user fa-2xl"></i></a>
+        <a href="{{ profile.homepage_link }}" target="_blank"><i class="fa-light fa-square-user fa-2xl" style="color: #8993a4;"></i></a>
         &nbsp;&nbsp;
       {% endif %}
       {% if profile.facebook_link %}
-        <a href="{{ profile.facebook_link }}" target="_blank"><i class="fa-brands fa-square-facebook fa-2xl"></i></a>
+        <a href="{{ profile.facebook_link }}" target="_blank"><i class="fa-brands fa-square-facebook fa-2xl" style="color: #8993a4;"></i></a>
         &nbsp;&nbsp;
       {% endif %}
       {% if profile.linkedin_link %}
-        <a href="{{ profile.linkedin_link }}" target="_blank"><i class="fa-brands fa-linkedin fa-2xl"></i></a>
+        <a href="{{ profile.linkedin_link }}" target="_blank"><i class="fa-brands fa-linkedin fa-2xl" style="color: #8993a4;"></i></a>
         &nbsp;&nbsp;
       {% endif %}
       {% if profile.github_link %}
-        <a href="{{ profile.github_link }}" target="_blank"><i class="fa-brands fa-square-github fa-2xl"></i></a>
+        <a href="{{ profile.github_link }}" target="_blank"><i class="fa-brands fa-square-github fa-2xl" style="color: #8993a4;"></i></a>
       {% endif %}
         <div class="mt-3">
           {% if profile.profile_bio %}
@@ -74,7 +74,7 @@
             <p class="card-text">
               {% for following in profile.follows.all %}
                 <p>
-                    <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>
+                    <a href="{% url 'profile' following.user.id %}">@{{ following }}</a>&nbsp;&nbsp;<a href="{% url 'unfollow' following.user.id %}"><i class="fa-sharp fa-solid fa-arrow-rotate-left fa-sm" style="color: gray;"></i></a>
                 </p>
               {% endfor %}
             </p>
