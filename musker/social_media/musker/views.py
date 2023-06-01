@@ -52,6 +52,20 @@ def unfollow_user(request, pk):
         return redirect("index")
 
 
+def follow_user(request, pk):
+    if request.user.is_authenticated:
+        profile = Profile.objects.get(user_id=pk)
+        request.user.profile.follows.add(profile)
+        request.user.profile.save()
+        messages.success(
+            request, f"You have successfully followed {profile.user.username}"
+        )
+        return redirect(request.META.get("HTTP_REFERER"))
+    else:
+        messages.success(request, "You must be logged in to follow a user.")
+        return redirect("index")
+
+
 def profile(request, pk):
     if request.user.is_authenticated:
         profile = Profile.objects.get(user_id=pk)
@@ -71,6 +85,20 @@ def profile(request, pk):
         return render(request, "musker/profile.html", context)
     else:
         messages.success(request, "You must be logged in to see the profile page.")
+        return redirect("index")
+
+
+def followers(request, pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+            profiles = Profile.objects.get(user_id=pk)
+            context = {"profiles": profiles}
+            return render(request, "musker/followers.html", context)
+        else:
+            messages.success(request, "This is not your followers page.")
+            return redirect("index")
+    else:
+        messages.success(request, "You must be logged in to see your followers list.")
         return redirect("index")
 
 

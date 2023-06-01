@@ -15,7 +15,7 @@ class ProfileInline(admin.StackedInline):
 # Extend User model
 class UserAdmin(admin.ModelAdmin):
     model = User
-    fields = ["username"]
+    fields = ["username", "first_name", "last_name", "email"]
     inlines = [ProfileInline]
 
 
