@@ -102,6 +102,20 @@ def followers(request, pk):
         return redirect("index")
 
 
+def follows(request, pk):
+    if request.user.is_authenticated:
+        if request.user.id == pk:
+            profiles = Profile.objects.get(user_id=pk)
+            context = {"profiles": profiles}
+            return render(request, "musker/follows.html", context)
+        else:
+            messages.success(request, "This is not your follows page.")
+            return redirect("index")
+    else:
+        messages.success(request, "You must be logged in to see your follows list.")
+        return redirect("index")
+
+
 def register_user(request):
     form = SignUpForm()
     if request.method == "POST":
