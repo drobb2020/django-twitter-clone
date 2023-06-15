@@ -26,10 +26,10 @@
     {% include "partials/navbar.html" %}
     {% if messages %}
     {% for message in messages %}
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        <strong>Notice!</strong> {{ message }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-      </div>
+    <div class="alert alert-warning alert-dismissible fade show" data-timeout="5000" role="alert">
+      <strong>Notice!</strong> {{ message }}
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     {% endfor %}
     {% endif %}
     <div class="container mt-4">

@@ -14,6 +14,7 @@ urlpatterns = [
     path('update_user/', views.update_user, name='update-user'),
     path('meep_like/<int:pk>/', views.meep_like, name='meep_like'),
     path('meep_show/<int:pk>/', views.meep_show, name='meep_show'),
+    path('meep_delete/<int:pk>/', views.meep_delete, name='meep_delete'),
     path('unfollow/<int:pk>/', views.unfollow_user, name='unfollow'),
     path('follow/<int:pk>/', views.follow_user, name='follow'),
 ]
