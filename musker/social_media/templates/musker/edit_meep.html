@@ -7,8 +7,7 @@
 <div class="container">
   <div class="row">
     <div class="col-8">
-      <h1 class="text-center">Meeps!</h1>
-      {% for meep in meeps %}
+      <h1 class="text-center">Meep!</h1>
       <div class="alert alert-secondary" role="alert">
         <div class="container">
           <div class="row">
@@ -27,32 +26,34 @@
             <div class="col-10">
               <p class="lead">{{ meep.body }}</p>
               <small class="text-muted">
-                {{ meep.created_at }} by @{{ meep.user.username|title }} | {{ meep.number_of_likes}} likes
-                 |
-                 <a href="{% url 'meep_like' meep.id %}">{% if user in meep.likes.all %}<i class="fa-solid fa-heart"  style="color: red;"></i>{% else %}<i class="fa-regular fa-heart" style="color: red;"></i>{% endif %}</a>
-                 | <a href="{% url 'meep_show' meep.id %}"><i class="fa-solid fa-share" style="color: green;"></i></a>
-                 {% if request.user.username == meep.user.username %}
-                  | <a href="{% url 'meep_delete' meep.id %}"><i class="fa-sharp fa-solid fa-trash" style="color: #8993a4;"></i></a>
-                  | <a href="{% url 'meep_edit' meep.id %}"><i class="fa-sharp fa-solid fa-pen-to-square" style="color: blue;"></i></a>
-                  {% endif %}
+                {{ meep.created_at }} by @{{ meep.user.username|title }} |
+                <a href="{% url 'meep_like' meep.id %}"
+                  >{% if user in meep.likes.all %}<i
+                    class="fa-solid fa-heart"
+                    style="color: red"
+                  ></i
+                  >{% else %}<i
+                    class="fa-regular fa-heart"
+                    style="color: red"
+                  ></i
+                  >{% endif %}</a
+                >
               </small>
             </div>
           </div>
         </div>
       </div>
-      {% endfor %}
-    </div>
-    <div class="col-4 mt-3">
       {% if form %}
-      <h3 class="text-center">Add A New Meep!</h3>
+      <h3 class="text-center">Update your Meep!</h3>
       <form method="POST">
-        {% csrf_token %} {{ form.as_p }}
+        {% csrf_token %}
+        {{ form.as_p }}
         <button type="submit" class="btn btn-secondary w-100">
-          Post Meep!
+          Update Meep!
         </button>
       </form>
       {% endif %}
-    </div>
+      </div>
   </div>
 </div>
 

@@ -224,3 +224,30 @@ def meep_delete(request, pk):
     else:
         messages.success(request, "You must be logged in to to delete this meep!")
         return redirect("login")
+
+
+def meep_edit(request, pk):
+    if request.user.is_authenticated:
+        meep = get_object_or_404(Meep, pk=pk)
+        # you must own the meep to edit it
+        if request.user.username == meep.user.username:
+            form = MeepForm(request.POST or None, instance=meep)
+            if request.method == "POST":
+                if form.is_valid():
+                    meep = form.save(commit=False)
+                    meep.user = request.user
+                    meep.save()
+                    messages.success(
+                        request, ("Your meep has been updated successfully.")
+                    )
+                    return redirect("index")
+            else:
+                context = {"meep": meep, "form": form}
+                return render(request, "musker/edit_meep.html", context)
+
+        else:
+            messages.success(request, "You cannot edit a meep you don't own!")
+            return redirect("index")
+    else:
+        messages.success(request, "You must be logged in to to edit this meep!")
+        return redirect("login")

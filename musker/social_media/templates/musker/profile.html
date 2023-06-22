@@ -35,6 +35,7 @@
                   | <a href="{% url 'meep_show' meep.id %}"><i class="fa-solid fa-share" style="color: green;"></i></a>
                   {% if request.user.username == profile.user.username %}
                   | <a href="{% url 'meep_delete' meep.id %}"><i class="fa-sharp fa-solid fa-trash" style="color: #8993a4;"></i></a>
+                  | <a href="{% url 'meep_edit' meep.id %}"><i class="fa-sharp fa-solid fa-pen-to-square" style="color: blue;"></i></a>
                   {% endif %}
                 </small>
               </div>
