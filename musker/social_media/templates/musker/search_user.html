@@ -1,0 +1,71 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+
+<div class="col-md-8 offset-md-2">
+  <h1 class="mb-3">Search Users!</h1>
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input
+      class="form-control me-2 mb-2"
+      type="search"
+      name="search"
+      placeholder="Search for a user"
+      aria-label="Search"
+    />
+    <button type="submit" class="btn btn-secondary my-3 w-100">
+      Search Users!
+    </button>
+  </form>
+  <div class="mt-3">
+    {% if search %}
+    <h3>You searched for: {{ search }}</h3>
+    {% endif %}
+  </div>
+  <hr />
+  <div class="mt-3">
+    {% if searched %}
+    {% for result in searched %}
+    <div class="card mb-3" style="max-width: 600px">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img
+            {% if result.profile.profile_image %}
+            src="{{ result.profile.profile_image.url }}"
+            {% else %}
+            src="{% static 'assets/user.png' %}"
+            {% endif %}
+            class="img-fluid rounded-start"
+            style="height: 200px"
+            alt="{{ result.user.username }}"
+          />
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ result.profile.user.username }}</h5>
+            <p class="lead mb-3">
+              Link:
+              <a href="{% url 'profile' result.profile.user.id %}"
+                >@{{ result.profile.user.username|lower }}</a
+              >
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Date Joined: {{ result.profile.date_joined }}</small
+              >
+            </p>
+            <p class="card-text">
+              <small class="text-muted"
+                >Last updated: {{ result.profile.date_modified }}</small
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+    {% else %}
+    <h2>There are currently no users to display matching your search, please try again...</h2>
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}

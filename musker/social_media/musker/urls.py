@@ -18,4 +18,6 @@ urlpatterns = [
     path('meep_edit/<int:pk>/', views.meep_edit, name='meep_edit'),
     path('unfollow/<int:pk>/', views.unfollow_user, name='unfollow'),
     path('follow/<int:pk>/', views.follow_user, name='follow'),
+    path('search/', views.search, name='search'),
+    path('search_user/', views.search_user, name='search_user'),
 ]

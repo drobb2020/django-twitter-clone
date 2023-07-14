@@ -251,3 +251,25 @@ def meep_edit(request, pk):
     else:
         messages.success(request, "You must be logged in to to edit this meep!")
         return redirect("login")
+
+
+def search(request):
+    if request.method == "POST":
+        search = request.POST['search']
+        searched = Meep.objects.filter(body__icontains=search)
+        context = {'search': search, 'searched': searched}
+        return render(request, "musker/search.html", context)
+    else:
+        context = {}
+        return render(request, "musker/search.html", context)
+
+
+def search_user(request):
+    if request.method == "POST":
+        search = request.POST['search']
+        searched = User.objects.filter(username__icontains=search)
+        context = {'search': search, 'searched': searched}
+        return render(request, "musker/search_user.html", context)
+    else:
+        context = {}
+        return render(request, "musker/search_user.html", context)
