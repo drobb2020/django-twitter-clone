@@ -168,4 +168,4 @@ Project Link: [https://github.com/drobb2020/django-ecommerce](https://github.com
 [license-url]: https://github.com/drobb2020/django-twitter-clone/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/david-robb-42436a20/
-[product-screenshot]: ./ecom/static/assets/screenshot.png
+[product-screenshot]: ./musker/social_media/static/assets/screenshot.png
