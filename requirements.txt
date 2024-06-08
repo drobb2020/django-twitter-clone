@@ -6,7 +6,7 @@
 #
 asgiref==3.8.1
     # via django
-django==5.0.3
+django==5.0.6
     # via
     #   -r requirements.in
     #   django-extensions
